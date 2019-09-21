@@ -1,26 +1,9 @@
 #pragma once
-#include "discord-rpc/win32-dynamic/include/discord_rpc.h"
-#include "discord-rpc/win32-dynamic/include/discord_register.h"
+
+#include "Externals.h"
+#include <time.h>
 
 #define DLL_EXPORT __declspec(dllexport)
-
-typedef enum DiscordEvent
-{
-	Ready = 1,
-	Disconnected,
-	Error,
-	JoinGame,
-	SpectateGame,
-	JoinRequest
-};
-
-extern DiscordRichPresence presence;
-extern DiscordEventHandlers events;
-extern DiscordEvent event;
-extern DiscordUser* some_person_that_might_join = nullptr;
-
-extern char* AppID = nullptr;
-extern char* SteamID = nullptr;
 
 //Initialization related functions
 /*Sets the application ID used by Discord*/
@@ -64,11 +47,16 @@ void DLL_EXPORT SetSpectateSecret(float* args);
 /*Stops the presence.*/
 void DLL_EXPORT Shutdown(float* args);
 
+//Other helpfull functions
+void DLL_EXPORT TimeNow(float* args);
+
 //Internal functions
 /*Taken from 3DRadSpace Extender
 Link: https://github.com/NicusorN5/3D_Rad_Extender_Lib/wiki/ParseStringFromFloatArray
 Converts a float* to a char* */
 char* ParseStringFromFloatArray(float* args);
+
+size_t WriteStringToFloatArray(float* args, char* string, int offset);
 
 void e_ready(const DiscordUser* request);
 void e_disconnected(int errorCode, const char* message);

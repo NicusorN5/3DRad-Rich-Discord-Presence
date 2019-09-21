@@ -2,8 +2,6 @@
 #include "pch.h"
 #include "Discord.h"
 
-
-
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -17,7 +15,12 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_DETACH:
         break;
     }
-
+	events.disconnected = e_disconnected;
+	events.errored = e_errored;
+	events.joinGame = e_joinGame;
+	events.joinRequest = e_joinRequest;
+	events.ready = e_ready;
+	events.spectateGame = e_spectateGame;
     return TRUE;
 }
 

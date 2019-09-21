@@ -1,6 +1,14 @@
 #include "pch.h"
 #include "Discord.h"
 
+DiscordRichPresence presence;
+DiscordEventHandlers events;
+DiscordEvent event;
+DiscordUser* some_person_that_might_join = nullptr;
+
+char* AppID = nullptr;
+char* SteamID = nullptr;
+
 void DLL_EXPORT SetAppID(float* args)
 {
 	AppID = ParseStringFromFloatArray(args); //No need to delete since we store the reference in AppID;
@@ -12,7 +20,14 @@ void DLL_EXPORT SetSteamID(float* args)
 }
 void DLL_EXPORT GetLastestEvent(float* args)
 {
-	
+	args[0] = event;
+	if (event == DiscordEvent::JoinRequest)
+	{
+		int a = WriteStringToFloatArray(args, (char*)some_person_that_might_join->avatar, 1);
+		int b = WriteStringToFloatArray(args, (char*)some_person_that_might_join->username, 1+a);
+		int c = WriteStringToFloatArray(args, (char*)some_person_that_might_join->discriminator, 1 + b);
+		WriteStringToFloatArray(args, (char*)some_person_that_might_join->userId,c );
+	}
 }
 void DLL_EXPORT SetState(float* args)
 {
@@ -94,6 +109,11 @@ void DLL_EXPORT Shutdown(float* args)
 	Discord_Shutdown();
 }
 
+void DLL_EXPORT TimeNow(float* args)
+{
+	args[0] = time(nullptr);
+}
+
 char* ParseStringFromFloatArray(float* args)
 {
 	char* str = new char[16383]; //Oh yes, that's how many arguments the args[] can have, as documented in 3D Rad's documentation.
@@ -107,6 +127,7 @@ char* ParseStringFromFloatArray(float* args)
 			break;
 		}
 	}
+	//Create the same sting but with less memory usage.
 	char* ret = new char[s + 1];
 	for (int i = 0; i <= s; i++)
 	{
@@ -115,6 +136,16 @@ char* ParseStringFromFloatArray(float* args)
 	delete[] str;
 	return ret; //This is prone to memory leaks if not used correctly.
 	//Store the result in a separate string and then delete it.
+}
+
+size_t WriteStringToFloatArray(float* args, char* string, int offset)
+{
+	int i;
+	for (i=0; string[i] != '\0' ; i++)
+	{
+		args[i + offset] = string[i];
+	}
+	return i;
 }
 
 void e_ready(const DiscordUser* request)
