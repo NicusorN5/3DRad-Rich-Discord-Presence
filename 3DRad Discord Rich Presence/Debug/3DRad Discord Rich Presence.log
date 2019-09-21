@@ -1,0 +1,16 @@
+﻿  Discord.cpp
+C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Discord.h(15,2): warning C4091:  'typedef ': ignored on left of 'DiscordEvent' when no variable is declared
+C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Discord.cpp(29,34): warning C4244:  '=': conversion from 'float' to 'int64_t', possible loss of data
+C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Discord.cpp(34,32): warning C4244:  '=': conversion from 'float' to 'int64_t', possible loss of data
+C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Discord.cpp(64,29): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+  dllmain.cpp
+C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Discord.cpp(69,28): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Discord.h(15,2): warning C4091:  'typedef ': ignored on left of 'DiscordEvent' when no variable is declared
+dllmain.obj : error LNK2005: "struct DiscordUser * some_person_that_might_join" (?some_person_that_might_join@@3PAUDiscordUser@@A) already defined in Discord.obj
+dllmain.obj : error LNK2005: "char * AppID" (?AppID@@3PADA) already defined in Discord.obj
+dllmain.obj : error LNK2005: "char * SteamID" (?SteamID@@3PADA) already defined in Discord.obj
+     Creating library C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Debug\3DRad Discord Rich Presence.lib and object C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Debug\3DRad Discord Rich Presence.exp
+Discord.obj : error LNK2001: unresolved external symbol "struct DiscordRichPresence presence" (?presence@@3UDiscordRichPresence@@A)
+Discord.obj : error LNK2001: unresolved external symbol "enum DiscordEvent event" (?event@@3W4DiscordEvent@@A)
+C:\Users\Athanatos\source\repos\3DRad Discord Rich Presence\Debug\3DRad Discord Rich Presence.dll : fatal error LNK1120: 2 unresolved externals
