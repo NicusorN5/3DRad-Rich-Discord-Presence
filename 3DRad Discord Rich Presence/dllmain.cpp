@@ -15,6 +15,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_DETACH:
         break;
     }
+	memset(&events, 0, sizeof(events));
+	memset(&presence, 0, sizeof(presence));
 	events.disconnected = e_disconnected;
 	events.errored = e_errored;
 	events.joinGame = e_joinGame;

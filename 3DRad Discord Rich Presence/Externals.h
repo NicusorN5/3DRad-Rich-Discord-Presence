@@ -2,7 +2,7 @@
 #include "discord-rpc/win32-dynamic/include/discord_rpc.h"
 #include "discord-rpc/win32-dynamic/include/discord_register.h"
 
-typedef enum DiscordEvent
+enum DiscordEvent
 {
 	Ready = 1,
 	Disconnected,

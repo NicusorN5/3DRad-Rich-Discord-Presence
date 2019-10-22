@@ -2,10 +2,21 @@
 
 #include "Externals.h"
 #include <time.h>
+#include <stdlib.h>
 
 #define DLL_EXPORT __declspec(dllexport)
 
 //Initialization related functions
+
+/*Starts the Rich Presence*/
+
+void DLL_EXPORT Initialize(float* Args);
+
+
+void DLL_EXPORT Start(float* args);
+/*Updates the presence.*/
+void DLL_EXPORT UpdatePresence(float* args);
+
 /*Sets the application ID used by Discord*/
 void DLL_EXPORT SetAppID(float* args);
 /*Sets the steam ID if needed.*/

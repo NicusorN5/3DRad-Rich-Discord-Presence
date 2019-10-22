@@ -9,6 +9,28 @@ DiscordUser* some_person_that_might_join = nullptr;
 char* AppID = nullptr;
 char* SteamID = nullptr;
 
+void DLL_EXPORT Initialize(float* Args)
+{
+	memset(&events, 0, sizeof(events));
+	memset(&presence, 0, sizeof(presence));
+	events.disconnected = e_disconnected;
+	events.errored = e_errored;
+	events.joinGame = e_joinGame;
+	events.joinRequest = e_joinRequest;
+	events.ready = e_ready;
+	events.spectateGame = e_spectateGame;
+}
+
+void DLL_EXPORT Start(float* args)
+{
+	Discord_Initialize(AppID, &events, 1, SteamID);
+}
+
+void DLL_EXPORT UpdatePresence(float* args)
+{
+	Discord_UpdatePresence(&presence);
+}
+
 void DLL_EXPORT SetAppID(float* args)
 {
 	AppID = ParseStringFromFloatArray(args); //No need to delete since we store the reference in AppID;
@@ -20,7 +42,7 @@ void DLL_EXPORT SetSteamID(float* args)
 }
 void DLL_EXPORT GetLastestEvent(float* args)
 {
-	args[0] = event;
+	args[0] = (float)event;
 	if (event == DiscordEvent::JoinRequest)
 	{
 		int a = WriteStringToFloatArray(args, (char*)some_person_that_might_join->avatar, 1);
@@ -41,12 +63,12 @@ void DLL_EXPORT SetDetails(float* args)
 
 void DLL_EXPORT SetStartTimestamp(float* args)
 {
-	presence.startTimestamp = args[0];
+	presence.startTimestamp = (int64_t)args[0];
 }
 
 void DLL_EXPORT SetEndTimestamp(float* args)
 {
-	presence.endTimestamp = args[0];
+	presence.endTimestamp = (int64_t)args[0];
 }
 
 void DLL_EXPORT SetLargeImageKey(float* args)
@@ -76,12 +98,12 @@ void DLL_EXPORT SetPartyID(float* args)
 
 void DLL_EXPORT SetPartySize(float* args)
 {
-	presence.partySize = args[0];
+	presence.partySize = (int)args[0];
 }
 
 void DLL_EXPORT SetPartyMax(float* args)
 {
-	presence.partyMax = args[0];
+	presence.partyMax = (int)args[0];
 }
 
 void DLL_EXPORT SetMatchSecret(float* args)
@@ -111,7 +133,7 @@ void DLL_EXPORT Shutdown(float* args)
 
 void DLL_EXPORT TimeNow(float* args)
 {
-	args[0] = time(nullptr);
+	args[0] = (float)time(nullptr);
 }
 
 char* ParseStringFromFloatArray(float* args)
@@ -161,6 +183,7 @@ void e_disconnected(int errorCode, const char* message)
 void e_errored(int errorCode, const char* message)
 {
 	event = DiscordEvent::Error;
+	MessageBoxA(nullptr, message, "message", MB_OK);
 }
 
 void e_joinGame(const char* joinSecret)

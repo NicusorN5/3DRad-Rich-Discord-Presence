@@ -1,3 +1,2 @@
 ﻿  dllmain.cpp
-C:\Users\Athanatos\source\repos\3DRad-Rich-Discord-Presence\3DRad Discord Rich Presence\Externals.h(13,2): warning C4091:  'typedef ': ignored on left of 'DiscordEvent' when no variable is declared
   3DRad Discord Rich Presence.vcxproj -> C:\Users\Athanatos\source\repos\3DRad-Rich-Discord-Presence\3DRad Discord Rich Presence\Debug\3DRad Discord Rich Presence.dll
